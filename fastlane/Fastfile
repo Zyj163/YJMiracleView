@@ -1,0 +1,45 @@
+desc '使用这个航道快速对自己的pods库做升级维护'
+lane :PodsManager do |options|  #fastlane PodsManager tag:0.1.0
+#增加外部参数
+tagName = options[:tag]
+commitMessage = options[:message]
+
+#actions
+
+#0. 修改podspecs中version
+write_tag(tag: "#{tagName}")
+
+#1. carthage
+carthage(
+command: "build",
+no_skip_current: true,
+platform: "iOS"
+)
+
+cocoapods(
+clean:true,
+podfile:"Example/Podfile"
+)
+
+#2. git add .    git commit -m "xx"    git push origin master
+git_add(path: ".")
+
+git_commit(path: ".", message: "#{commitMessage}xx")
+
+push_to_git_remote
+
+#3. git tag ""  git push --tags
+if git_tag_exists(tag: tagName)
+remove_tag(tag: tagName)
+end
+add_git_tag(
+tag: tagName
+)
+push_git_tags
+
+#4. pod spec lint      pod trunk push
+pod_lib_lint(allow_warnings: true)
+pod_push(allow_warnings: true)
+
+
+end

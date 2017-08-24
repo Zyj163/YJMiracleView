@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'YJMiracleView_Example' do
+  pod 'YJMiracleView', :path => '../'
+
+  target 'YJMiracleView_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end

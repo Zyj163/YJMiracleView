@@ -1,0 +1,16 @@
+PODS:
+  - YJMiracleView (0.1.0)
+
+DEPENDENCIES:
+  - YJMiracleView (from `../`)
+
+EXTERNAL SOURCES:
+  YJMiracleView:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  YJMiracleView: f920c9b544a18457b80b01c3fd30e6b65aebf052
+
+PODFILE CHECKSUM: 108615cb7c61b0826cce46935027cfdcaffc87a2
+
+COCOAPODS: 1.2.1

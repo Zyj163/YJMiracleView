@@ -1,0 +1,6 @@
+framework module YJMiracleView {
+  umbrella header "YJMiracleView-umbrella.h"
+
+  export *
+  module * { export * }
+}
