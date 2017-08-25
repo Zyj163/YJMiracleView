@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
   s.description      = <<-DESC
-无法描述，miracle.
+YJMiracleView无法描述，miracle.
                        DESC
 
   s.homepage         = 'https://github.com/Zyj163/YJMiracleView'
