@@ -8,21 +8,19 @@
 
 import UIKit
 
-public enum YJMiracleViewAnimateType {
-	case none
-	case lineH_priority
-	case lineV_priority
-}
-
 public protocol YJMiracleViewDataSource: class {
 	
 	func numberOfLanes(in miracleView: YJMiracleView) -> Int
 	
+	/// 间隔，当animateDriver的animateType为lineH或lineV时，用做item的间隔，当为circle时为半径
+	///
+	/// - Parameter miracleView: 父级
+	/// - Returns: space
 	func spaceOfItems(in miracleView: YJMiracleView) -> Float
 	
 	func miracleView(_ miracleView :YJMiracleView, numbersInLane: Int) -> Int
 	
-	func item(in miracleView: YJMiracleView, at position: YJMiracleItemPosition) -> YJMiracleItem
+	func item(in miracleView: YJMiracleView, at position: YJMiracleItemPosition) -> YJMiracleView
 	func miracleView(_ miracleView: YJMiracleView, sizeForItemAt position: YJMiracleItemPosition) -> CGSize
 }
 
@@ -44,12 +42,34 @@ extension YJMiracleViewDataSource {
 	
 }
 
-public class YJMiracleView: YJMiracleItem {
+open class YJMiracleView: UIView {
 	
 	public weak var dataSource: YJMiracleViewDataSource?
 	public weak var delegate: YJMiracleViewDelegate?
 	
-	fileprivate lazy var items: [YJMiracleItem] = [YJMiracleItem]()
+	public lazy var textLabel: UILabel = {
+		let label = UILabel()
+		label.font = UIFont.systemFont(ofSize: 13)
+		label.textAlignment = .center
+		self.addSubview(label)
+		self._textLabel = label
+		return label
+	}()
+	
+	fileprivate var _textLabel: UILabel?
+	
+	public lazy var backgroundImageView: UIImageView = {
+		let imageView = UIImageView()
+		self.insertSubview(imageView, at: 0)
+		return imageView
+	}()
+	
+	fileprivate var _backgroundImageView: UIImageView?
+	
+	fileprivate lazy var _items: [YJMiracleView] = [YJMiracleView]()
+	public var items: [YJMiracleView] {
+		return _items
+	}
 	
 	fileprivate var opened: Bool = false
 	fileprivate var animating: Bool = false
@@ -57,28 +77,61 @@ public class YJMiracleView: YJMiracleItem {
 	public var isOpened: Bool {
 		return opened
 	}
-	
-	public var animateType: YJMiracleViewAnimateType = .lineH_priority
+	public var isAnimating: Bool {
+		return animating
+	}
 	
 	fileprivate var autoTranslucentable: Bool = true
 	fileprivate var attachable: Bool = true
 	
 	fileprivate var isRootItem: Bool = true
 	
-	override public func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-		super.touchesBegan(touches, with: event)
-		if autoTranslucentable { inactiveAutoTranslucent() }
-	}
+	public lazy var animateDriver: YJMiracleAnimateDriver = YJMiracleAnimateDriver(self)
 	
-	override func tapOn(_ sender: UITapGestureRecognizer) {
-		super.tapOn(sender)
-		if autoTranslucentable { inactiveAutoTranslucent() }
-	}
+	public var clickOn: (()->())?
+	
+	public var hasClickOnAnimate: Bool = true
+	
+	public var position: YJMiracleItemPosition = YJMiracleItemPosition()
+	
+	public weak var miracleView: YJMiracleView?
 	
 	convenience public init(_ frame: CGRect, autoTranslucentable: Bool = true, attachable: Bool = true) {
 		self.init(frame)
 		self.autoTranslucentable = autoTranslucentable
 		self.attachable = attachable
+	}
+	
+	override private init(frame: CGRect) {
+		super.init(frame: frame)
+		let tap = UITapGestureRecognizer(target: self, action: #selector(tapOn(_:)))
+		tap.delaysTouchesBegan = true
+		addGestureRecognizer(tap)
+	}
+	
+	required public init?(coder aDecoder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+	
+	override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+		super.touchesBegan(touches, with: event)
+		if autoTranslucentable { inactiveAutoTranslucent() }
+	}
+	
+	func tapOn(_ sender: UITapGestureRecognizer) {
+		if hasClickOnAnimate { animateDriver.clickOnAnimation() }
+		clickOn?()
+		if autoTranslucentable { inactiveAutoTranslucent() }
+	}
+	
+	override open func layoutSubviews() {
+		super.layoutSubviews()
+		if let label = _textLabel {
+			label.frame = bounds
+		}
+		if let imageView = _backgroundImageView {
+			imageView.frame = bounds
+		}
 	}
 }
 
@@ -90,24 +143,22 @@ extension YJMiracleView {
 		
 		prepareToOpen()
 		
-		loadAnimations()
+		animateDriver.loadAnimations()
 		
 		fire()
 	}
 	
 	public func close() {
 		if !opened || animating { return }
-		items.forEach { (item: YJMiracleItem) in
+		items.forEach { (item: YJMiracleView) in
 			autoreleasepool(invoking: { () -> Void in
-				if let itemView = item as? YJMiracleView {
-					itemView.close()
-				}
+				item.close()
 			})
 		}
 		fire()
 	}
 	
-	public func item(at position: YJMiracleItemPosition, upper: Bool = false) -> YJMiracleItem? {
+	public func item(at position: YJMiracleItemPosition, upper: Bool = false) -> YJMiracleView? {
 		
 		//根item
 		guard let parent = position.parent else {
@@ -128,10 +179,10 @@ extension YJMiracleView {
 		
 		//向下遍历
 		if !upper {
-			let childs = items.filter { $0 is YJMiracleView }
-			if childs.isEmpty { return nil }
-			for child in childs as! [YJMiracleView] {
-				if let item = autoreleasepool(invoking: { () -> YJMiracleItem? in
+			let childs = items.filter { !$0.items.isEmpty }
+			if childs.isEmpty { return miracleView?.item(at: position, upper: true) }
+			for child in childs {
+				if let item = autoreleasepool(invoking: { () -> YJMiracleView? in
 					return child.item(at: position)
 				}) {
 					return item
@@ -147,15 +198,13 @@ extension YJMiracleView {
 	}
 	
 	fileprivate func reload() {
-		items.forEach { (item: YJMiracleItem) in
+		items.forEach { (item: YJMiracleView) in
 			autoreleasepool(invoking: { () -> Void in
-				if let itemView = item as? YJMiracleView {
-					itemView.reload()
-				}
+				item.reload()
 				item.removeFromSuperview()
 			})
 		}
-		items.removeAll()
+		_items.removeAll()
 	}
 }
 
@@ -184,29 +233,15 @@ extension YJMiracleView {
 			item.layer.opacity = 0
 			item.layer.position = layer.position
 			item.position = pp
-			item.closedLocation = layer.position
 			item.miracleView = self
-			if let item = item as? YJMiracleView {
-				item.animateType = animateType == .lineH_priority ? .lineV_priority : .lineH_priority
-				item.isRootItem = false
-				item.autoTranslucentable = false
-				item.attachable = false
-			}
+			
+			item.isRootItem = false
+			item.autoTranslucentable = false
+			item.attachable = false
+			
 			superview!.insertSubview(item, belowSubview: self)
 			
-			items.append(item)
-		}
-	}
-	
-	/// 装载动画（打开／关闭）
-	fileprivate func loadAnimations() {
-		switch animateType {
-		case .none:
-			return
-		case .lineH_priority:
-			lineH_priorityAnimate()
-		case .lineV_priority:
-			lineV_priorityAnimate()
+			_items.append(item)
 		}
 	}
 	
@@ -216,7 +251,7 @@ extension YJMiracleView {
 		animating = true
 		items.forEach {
 			group.enter()
-			$0.animate?{ group.leave() }
+			$0.animateDriver.excuteAnimation(open: !opened) { group.leave() }
 		}
 		group.notify(queue: DispatchQueue.main, execute: {[weak self] in
 			if let `self` = self {
@@ -248,102 +283,10 @@ extension YJMiracleView {
 	}
 }
 
-// MARK: - 具体动画设计
-extension YJMiracleView {
-	fileprivate func lineH_priorityAnimate(_ force: Bool = false) {
-		
-		//先判断往左还是往右（规则：哪边离得远去哪边）
-		let l = frame.minX
-		let r = superview!.frame.maxX - frame.maxX
-		var layoutFrame: CGRect
-		
-		//优先原则：这条线没有其它item，不与其它item碰撞
-		if (r > l && !force) || (r <= l && force) {
-			var totalW: CGFloat = frame.maxX
-			for item in items {
-				let x = totalW + CGFloat(dataSource!.spaceOfItems(in: self)) + item.bounds.width / 2
-				item.openedLocation = CGPoint(x: x, y: item.layer.position.y)
-				totalW = x + item.bounds.width / 2
-			}
-			layoutFrame = CGRect(x: frame.maxX, y: frame.minY, width: totalW - frame.maxX, height: bounds.height)
-			
-		} else {
-			var totalW: CGFloat = frame.minX
-			for item in items {
-				let x = totalW - CGFloat(dataSource!.spaceOfItems(in: self)) - item.bounds.width / 2
-				item.openedLocation = CGPoint(x: x, y: item.layer.position.y)
-				totalW = x - item.bounds.width / 2
-			}
-			layoutFrame = CGRect(x: totalW, y: frame.minY, width: frame.minX - totalW, height: bounds.height)
-		}
-		
-		let has = superview!.subviews.filter({ (view: UIView) -> Bool in
-			return view != self && view.frame.intersects(layoutFrame)
-		}).count > 0
-		
-		if has && !force { return lineH_priorityAnimate(true) }
-		else if has { return }
-		
-		line_priorityAnimate()
-	}
-	
-	fileprivate func lineV_priorityAnimate(_ force: Bool = false) {
-		
-		//先判断往上还是往下（规则：哪边离得远去哪边）
-		let t = frame.minY
-		let b = superview!.frame.maxY - frame.maxY
-		
-		var layoutFrame: CGRect
-		
-		if (t > b && !force) || (t <= b && force) {
-			var totalH: CGFloat = frame.minY
-			for item in items {
-				let y = totalH - CGFloat(dataSource!.spaceOfItems(in: self)) - item.bounds.height / 2
-				item.openedLocation = CGPoint(x: item.layer.position.x, y: y)
-				totalH = y - item.bounds.height / 2
-			}
-			layoutFrame = CGRect(x: frame.minX, y: totalH, width: bounds.width, height: frame.minY - totalH)
-			
-		} else {
-			var totalH: CGFloat = frame.maxY
-			for item in items {
-				let y = totalH + CGFloat(dataSource!.spaceOfItems(in: self)) + item.bounds.height / 2
-				item.openedLocation = CGPoint(x: item.layer.position.x, y: y)
-				totalH = y + item.bounds.height / 2
-			}
-			layoutFrame = CGRect(x: frame.minX, y: frame.maxY, width: bounds.width, height: totalH - frame.maxY)
-		}
-		
-		let has = superview!.subviews.filter({ (view: UIView) -> Bool in
-			return view != self && view.frame.intersects(layoutFrame)
-		}).count > 0
-		
-		if has && !force { return lineV_priorityAnimate(true) }
-		else if has { return }
-		
-		line_priorityAnimate()
-	}
-	
-	fileprivate func line_priorityAnimate() {
-		items.forEach { (item: YJMiracleItem) in
-			item.animate = { [weak item, weak self] (completion) in
-				if let item = item, let `self` = self {
-					UIView.animate(withDuration: 0.25, delay: 0.2, options: [.curveEaseOut], animations: {
-						item.layer.position = `self`.opened ? item.closedLocation : item.openedLocation
-						item.layer.opacity = `self`.opened ? 0 : 1
-					}, completion: { (finish) in
-						completion?()
-					})
-				}
-			}
-		}
-	}
-}
-
 
 // MARK: - YJAttachable
 extension YJMiracleView: YJAttachable {
-	public func shouldStateChanged(_ state: UIGestureRecognizerState) -> Bool {
+	open func shouldStateChanged(_ state: UIGestureRecognizerState) -> Bool {
 		switch state {
 		case .began:
 			inactiveAutoTranslucent()

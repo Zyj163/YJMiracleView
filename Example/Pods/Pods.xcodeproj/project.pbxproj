@@ -7,18 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2E46BB36E40E1991C7DD0EE2FE8D780A /* YJMiracleView-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B575EADB768FBFB2E06CD856F093AEA /* YJMiracleView-dummy.m */; };
 		3E8193745CF6D0181A5535644997CCE3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
-		703CBE0B2771D988F7687B2BE854A2CD /* YJMiracleItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B9BA76FB03561071FCA123915CA3C9F /* YJMiracleItem.swift */; };
+		4E7B5E52E714BF47B6301B1B19BF3D76 /* YJMiracleAnimateDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BA7E7884954B49DB1A1043CEC7422B /* YJMiracleAnimateDriver.swift */; };
+		5ED85E12FBA2DBA8073FFF8182AF4F18 /* YJMiracleItemPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6858B2046989D37507C3EBF67F8AAA2 /* YJMiracleItemPosition.swift */; };
+		96C9AA1372E612DF41782A0F54F2C039 /* YJAttachable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F44F2F88F58ADF9C152D6ACE2016035 /* YJAttachable.swift */; };
 		9A43EECADF067D4F7E8E3298703AF305 /* Pods-YJMiracleView_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C82023F9F230E4C1869F777568AAD80 /* Pods-YJMiracleView_Example-dummy.m */; };
 		A963E6EF4528F5A655BF7EBD101D242C /* Pods-YJMiracleView_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = F4090CB9E7EA370FF03B6318B23F0BB6 /* Pods-YJMiracleView_Tests-dummy.m */; };
+		AD96FAA5197EACF7F1133FC81C4E8D92 /* YJMiracleView-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B575EADB768FBFB2E06CD856F093AEA /* YJMiracleView-dummy.m */; };
 		B809A6AE470C8808979129D4B680E9D7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
 		BD5FEA5E2606FF9D2CFB21DDE73D65EE /* Pods-YJMiracleView_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B80E92576E5BC49C8C2E147B0FA5F09 /* Pods-YJMiracleView_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C35F98AEE16C8D1DA7C862911A705DA4 /* Pods-YJMiracleView_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 03A61276017217152ED448DCD0FB9908 /* Pods-YJMiracleView_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C726A27100D09A4D99A740ECED28F903 /* YJMiracleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFACBD63B54FDC55D4ED5B684E623939 /* YJMiracleView.swift */; };
 		CE7333E4C96856A163C4F0186F2D063E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
-		E0D8E6CE87A0FECECF9CD8AA667AFE21 /* YJAttachable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5CC0B1A12436B31D213DF04952402DB /* YJAttachable.swift */; };
 		EAEE8DD79C3B98FA037D49FFD9C53972 /* YJMiracleView-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 71069B6A8C426456CAE8E33AA6464DE6 /* YJMiracleView-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		FBF6229790F2334CFAE98B37ED5C6AC5 /* YJMiracleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1914EE7443DA4EF16C5B96DF5B337C /* YJMiracleView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,11 +41,13 @@
 		2B76E54441687D713590F362CCBA0F5E /* Pods-YJMiracleView_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-YJMiracleView_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		2C64D23C99429AE021F87E3E38B9A0EF /* Pods-YJMiracleView_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-YJMiracleView_Example.release.xcconfig"; sourceTree = "<group>"; };
 		2E5E4694CF256B6B43D6B9AD15312051 /* Pods-YJMiracleView_Example-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-YJMiracleView_Example-resources.sh"; sourceTree = "<group>"; };
+		33BA7E7884954B49DB1A1043CEC7422B /* YJMiracleAnimateDriver.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = YJMiracleAnimateDriver.swift; sourceTree = "<group>"; };
 		3B9562D9EDEDE9D23869C156FDC20649 /* Pods-YJMiracleView_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-YJMiracleView_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		3C0CA18FA51D0DD081C2C052A165DA50 /* Pods-YJMiracleView_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-YJMiracleView_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		4B80E92576E5BC49C8C2E147B0FA5F09 /* Pods-YJMiracleView_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-YJMiracleView_Tests-umbrella.h"; sourceTree = "<group>"; };
 		6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		6C82023F9F230E4C1869F777568AAD80 /* Pods-YJMiracleView_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-YJMiracleView_Example-dummy.m"; sourceTree = "<group>"; };
+		6F44F2F88F58ADF9C152D6ACE2016035 /* YJAttachable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = YJAttachable.swift; sourceTree = "<group>"; };
 		71069B6A8C426456CAE8E33AA6464DE6 /* YJMiracleView-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "YJMiracleView-umbrella.h"; sourceTree = "<group>"; };
 		7958A3E14EF2B6C1C3269E8001936053 /* YJMiracleView.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = YJMiracleView.xcconfig; sourceTree = "<group>"; };
 		7B575EADB768FBFB2E06CD856F093AEA /* YJMiracleView-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "YJMiracleView-dummy.m"; sourceTree = "<group>"; };
@@ -53,19 +56,18 @@
 		9290198684ECCE3F192CCA7F23DC981B /* Pods-YJMiracleView_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-YJMiracleView_Tests.modulemap"; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		97970ECBA22626309304085FBDF4BEE5 /* Pods_YJMiracleView_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_YJMiracleView_Tests.framework; path = "Pods-YJMiracleView_Tests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		9B9BA76FB03561071FCA123915CA3C9F /* YJMiracleItem.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = YJMiracleItem.swift; sourceTree = "<group>"; };
 		A921E0C1021BA8F138854C3B1B75552A /* Pods-YJMiracleView_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-YJMiracleView_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
 		ACB95753E3868C0E3C3D35DC874F42F4 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AD5740A69440103C016BBCD1C920A81B /* YJMiracleView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = YJMiracleView.framework; path = YJMiracleView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6063D5E5A00AFE151234ADE1359C438 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B75C555A9EF6C624D23D42773134E4C2 /* Pods-YJMiracleView_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-YJMiracleView_Example.modulemap"; sourceTree = "<group>"; };
-		BB1914EE7443DA4EF16C5B96DF5B337C /* YJMiracleView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = YJMiracleView.swift; sourceTree = "<group>"; };
 		C21434265C7851D0FD4A6BEDF06B0E48 /* YJMiracleView-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "YJMiracleView-prefix.pch"; sourceTree = "<group>"; };
-		D5CC0B1A12436B31D213DF04952402DB /* YJAttachable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = YJAttachable.swift; sourceTree = "<group>"; };
 		E261C2490000AEECE2712FFD86B85CA1 /* Pods-YJMiracleView_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-YJMiracleView_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
 		E3A4B65C1286BBCDCBB3CE59EC2430B4 /* Pods-YJMiracleView_Tests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-YJMiracleView_Tests-resources.sh"; sourceTree = "<group>"; };
 		E40CA6348F993AFB8C4BB1044DAE108A /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F4090CB9E7EA370FF03B6318B23F0BB6 /* Pods-YJMiracleView_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-YJMiracleView_Tests-dummy.m"; sourceTree = "<group>"; };
+		F6858B2046989D37507C3EBF67F8AAA2 /* YJMiracleItemPosition.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = YJMiracleItemPosition.swift; sourceTree = "<group>"; };
+		FFACBD63B54FDC55D4ED5B684E623939 /* YJMiracleView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = YJMiracleView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,11 +112,20 @@
 			path = "Example/Pods/Target Support Files/YJMiracleView";
 			sourceTree = "<group>";
 		};
+		1D5C2B26C2C8C408BD35DDA30A8975B4 /* YJMiracleView */ = {
+			isa = PBXGroup;
+			children = (
+				CF8CC091A951FAF7949CF8797EC043D7 /* Classes */,
+			);
+			name = YJMiracleView;
+			path = YJMiracleView;
+			sourceTree = "<group>";
+		};
 		4AA6E8AA0B74F2897EB1FD6BF8378D8F /* YJMiracleView */ = {
 			isa = PBXGroup;
 			children = (
 				1743039A27A9B10128CFD05279E96BBB /* Support Files */,
-				DC3C6C151771E9AB0FC29E1A08E5C5A5 /* YJMiracleView */,
+				1D5C2B26C2C8C408BD35DDA30A8975B4 /* YJMiracleView */,
 			);
 			name = YJMiracleView;
 			path = ../..;
@@ -158,17 +169,6 @@
 			);
 			sourceTree = "<group>";
 		};
-		98EF8813E27BCFA193E5AEB1CED5A1D1 /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				D5CC0B1A12436B31D213DF04952402DB /* YJAttachable.swift */,
-				9B9BA76FB03561071FCA123915CA3C9F /* YJMiracleItem.swift */,
-				BB1914EE7443DA4EF16C5B96DF5B337C /* YJMiracleView.swift */,
-			);
-			name = Classes;
-			path = Classes;
-			sourceTree = "<group>";
-		};
 		B04D70B93B6DCD0DF14DC2A6A63147AD /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -185,6 +185,18 @@
 				D35AF013A5F0BAD4F32504907A52519E /* iOS */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CF8CC091A951FAF7949CF8797EC043D7 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				6F44F2F88F58ADF9C152D6ACE2016035 /* YJAttachable.swift */,
+				33BA7E7884954B49DB1A1043CEC7422B /* YJMiracleAnimateDriver.swift */,
+				F6858B2046989D37507C3EBF67F8AAA2 /* YJMiracleItemPosition.swift */,
+				FFACBD63B54FDC55D4ED5B684E623939 /* YJMiracleView.swift */,
+			);
+			name = Classes;
+			path = Classes;
 			sourceTree = "<group>";
 		};
 		D35AF013A5F0BAD4F32504907A52519E /* iOS */ = {
@@ -219,15 +231,6 @@
 			);
 			name = "Pods-YJMiracleView_Tests";
 			path = "Target Support Files/Pods-YJMiracleView_Tests";
-			sourceTree = "<group>";
-		};
-		DC3C6C151771E9AB0FC29E1A08E5C5A5 /* YJMiracleView */ = {
-			isa = PBXGroup;
-			children = (
-				98EF8813E27BCFA193E5AEB1CED5A1D1 /* Classes */,
-			);
-			name = YJMiracleView;
-			path = YJMiracleView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -299,7 +302,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 402B291CCF21C9FDFCB43292583A6B12 /* Build configuration list for PBXNativeTarget "YJMiracleView" */;
 			buildPhases = (
-				C0B53428444296966AB8DB4C6E4D2566 /* Sources */,
+				4CF2DC4365A2F2375414FDAB688B59DF /* Sources */,
 				B4F01051C408EC7367260133607A055B /* Frameworks */,
 				1F21BD9ED478BAEB51483CAE96FEF32D /* Headers */,
 			);
@@ -341,6 +344,18 @@
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
+		4CF2DC4365A2F2375414FDAB688B59DF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				96C9AA1372E612DF41782A0F54F2C039 /* YJAttachable.swift in Sources */,
+				4E7B5E52E714BF47B6301B1B19BF3D76 /* YJMiracleAnimateDriver.swift in Sources */,
+				5ED85E12FBA2DBA8073FFF8182AF4F18 /* YJMiracleItemPosition.swift in Sources */,
+				AD96FAA5197EACF7F1133FC81C4E8D92 /* YJMiracleView-dummy.m in Sources */,
+				C726A27100D09A4D99A740ECED28F903 /* YJMiracleView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		527C3671372223306477EC55FA315FC1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -354,17 +369,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				9A43EECADF067D4F7E8E3298703AF305 /* Pods-YJMiracleView_Example-dummy.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C0B53428444296966AB8DB4C6E4D2566 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				E0D8E6CE87A0FECECF9CD8AA667AFE21 /* YJAttachable.swift in Sources */,
-				703CBE0B2771D988F7687B2BE854A2CD /* YJMiracleItem.swift in Sources */,
-				2E46BB36E40E1991C7DD0EE2FE8D780A /* YJMiracleView-dummy.m in Sources */,
-				FBF6229790F2334CFAE98B37ED5C6AC5 /* YJMiracleView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

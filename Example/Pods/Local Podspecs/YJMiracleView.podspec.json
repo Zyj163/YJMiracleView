@@ -1,6 +1,6 @@
 {
   "name": "YJMiracleView",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "summary": "YJMiracleView.",
   "description": "无法描述，miracle.",
   "homepage": "https://github.com/Zyj163/YJMiracleView",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "https://github.com/Zyj163/YJMiracleView.git",
-    "tag": "0.1.0"
+    "tag": "0.1.1"
   },
   "platforms": {
     "ios": "8.0"

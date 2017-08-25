@@ -48,7 +48,7 @@ extension ViewController: YJMiracleViewDataSource {
 		return 4
 	}
 	
-	func item(in miracleView: YJMiracleView, at position: YJMiracleItemPosition) -> YJMiracleItem {
+	func item(in miracleView: YJMiracleView, at position: YJMiracleItemPosition) -> YJMiracleView {
 		
 		if position.lane == 3 && position.index == 2 {testPosition = position}
 		
