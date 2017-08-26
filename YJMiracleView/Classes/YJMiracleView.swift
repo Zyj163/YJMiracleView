@@ -10,29 +10,10 @@ import UIKit
 
 public protocol YJMiracleViewDataSource: class {
 	
-	func numberOfLanes(in miracleView: YJMiracleView) -> Int
-	
-	/// 间隔，当animateDriver的animateType为lineH或lineV时，用做item的间隔，当为circle时为半径
-	///
-	/// - Parameter miracleView: 父级
-	/// - Returns: space
-	func spaceOfItems(in miracleView: YJMiracleView) -> Float
-	
 	func miracleView(_ miracleView :YJMiracleView, numbersInLane: Int) -> Int
 	
 	func item(in miracleView: YJMiracleView, at position: YJMiracleItemPosition) -> YJMiracleView
 	func miracleView(_ miracleView: YJMiracleView, sizeForItemAt position: YJMiracleItemPosition) -> CGSize
-}
-
-extension YJMiracleViewDataSource {
-	
-	public func numberOfLanes(in miracleView: YJMiracleView) -> Int {
-		return 1
-	}
-	
-	public func spaceOfItems(in miracleView: YJMiracleView) -> Float {
-		return 10
-	}
 }
 
 @objc public protocol YJMiracleViewDelegate: NSObjectProtocol {

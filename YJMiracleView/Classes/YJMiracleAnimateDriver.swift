@@ -9,10 +9,33 @@
 import UIKit
 
 public enum YJMiracleViewAnimateType {
-	case lineH
-	case lineV
-	case circle(CGFloat)
+	case lineH(CGFloat) //item 间隔，默认10
+	case lineV(CGFloat) //item 间隔，默认10
+	case circle(CGFloat, CGFloat, CGFloat)//半径，起始角度，结束角度（向右水平线为0度）
 	case custom
+    
+    
+    var space: CGFloat? {
+        get {
+            switch self {
+            case .lineV(let space), .lineH(let space):
+                return space
+            default:
+                return nil
+            }
+        }
+        set {
+            guard let newValue = newValue else {return}
+            switch self {
+            case .lineV(let space) where space != newValue:
+                self = .lineV(newValue)
+            case .lineH(let space) where space != newValue:
+                self = .lineH(newValue)
+            default:
+                break
+            }
+        }
+    }
 }
 
 public struct YJMiracleAnimation {
@@ -66,7 +89,7 @@ public struct YJMiracleAnimation {
 
 public class YJMiracleAnimateDriver {
 
-	public var animateType: YJMiracleViewAnimateType = .lineH
+	public var animateType: YJMiracleViewAnimateType = .lineH(10)
 	
 	fileprivate weak var _miracleView: YJMiracleView?
 	
@@ -83,12 +106,12 @@ public class YJMiracleAnimateDriver {
 	/// 装载动画（打开／关闭），可重写的这个方法，自定义动画及展开后的布局，可以调用installAnimation将动画参数添加到miracleView
 	open func loadAnimations() {
 		switch animateType {
-		case .lineH:
-			lineHAnimation()
-		case .lineV:
-			lineVAnimation()
-		case .circle(let angle):
-			circleAnimation(angle)
+		case .lineH(let space):
+			lineHAnimation(space)
+		case .lineV(let space):
+			lineVAnimation(space)
+		case .circle(let radius, let startAngle, let endAngle):
+			circleAnimation(radius: radius, startAngle: startAngle, endAngle: endAngle)
 		default:
 			break
 		}
@@ -99,9 +122,9 @@ public class YJMiracleAnimateDriver {
 // MARK: - 默认line动画，下一级的展开方向与上一级不同
 extension YJMiracleAnimateDriver {
 	
-	fileprivate func lineHAnimation(_ force: Bool = false) {
+    fileprivate func lineHAnimation(_ space: CGFloat, force: Bool = false) {
 		
-		guard let miracleView = miracleView, let superview = miracleView.superview, let dataSource = miracleView.dataSource else {
+		guard let miracleView = miracleView, let superview = miracleView.superview else {
 			return
 		}
 		let frame = miracleView.frame
@@ -118,7 +141,7 @@ extension YJMiracleAnimateDriver {
 		if (r > l && !force) || (r <= l && force) {
 			var totalW: CGFloat = frame.maxX
 			for (i, item) in items.enumerated() {
-				let x = totalW + CGFloat(dataSource.spaceOfItems(in: miracleView)) + item.bounds.width / 2
+				let x = totalW + space + item.bounds.width / 2
 				var animation = YJMiracleAnimation()
 				animation.openLocation = CGPoint(x: x, y: item.layer.position.y)
 				animation.closeLocation = item.layer.position
@@ -127,10 +150,12 @@ extension YJMiracleAnimateDriver {
 				item.animateDriver.animate = item.animateDriver.installAnimation(animation)
 				
 				switch item.miracleView!.animateDriver.animateType {
-				case .lineH:
-					item.animateDriver.animateType = .lineV
-				default:
-					item.animateDriver.animateType = .lineH
+				case .lineH(let space):
+					item.animateDriver.animateType = .lineV(space)
+				case .lineV(let space):
+					item.animateDriver.animateType = .lineH(space)
+                default:
+                    fatalError("animateType should be .lineV or .lineH")
 				}
 				
 				totalW = x + item.bounds.width / 2
@@ -140,7 +165,7 @@ extension YJMiracleAnimateDriver {
 		} else {
 			var totalW: CGFloat = frame.minX
 			for (i, item) in items.enumerated() {
-				let x = totalW - CGFloat(dataSource.spaceOfItems(in: miracleView)) - item.bounds.width / 2
+				let x = totalW - space - item.bounds.width / 2
 				var animation = YJMiracleAnimation()
 				animation.openLocation = CGPoint(x: x, y: item.layer.position.y)
 				animation.closeLocation = item.layer.position
@@ -149,11 +174,13 @@ extension YJMiracleAnimateDriver {
 				item.animateDriver.animate = item.animateDriver.installAnimation(animation)
 				
 				switch item.miracleView!.animateDriver.animateType {
-				case .lineH:
-					item.animateDriver.animateType = .lineV
-				default:
-					item.animateDriver.animateType = .lineH
-				}
+                case .lineH(let space):
+                    item.animateDriver.animateType = .lineV(space)
+                case .lineV(let space):
+                    item.animateDriver.animateType = .lineH(space)
+                default:
+                    fatalError("animateType should be .lineV or .lineH")
+                }
 				
 				totalW = x - item.bounds.width / 2
 			}
@@ -164,13 +191,13 @@ extension YJMiracleAnimateDriver {
 			return view != miracleView && view.frame.intersects(layoutFrame)
 		}).count > 0
 		
-		if has && !force { return lineHAnimation(true) }
+		if has && !force { return lineHAnimation(space, force: true) }
 		else if has { return }
 	}
 	
-	fileprivate func lineVAnimation(_ force: Bool = false) {
+	fileprivate func lineVAnimation(_ space: CGFloat, force: Bool = false) {
 		
-		guard let miracleView = miracleView, let superview = miracleView.superview, let dataSource = miracleView.dataSource else {
+		guard let miracleView = miracleView, let superview = miracleView.superview else {
 			return
 		}
 		let frame = miracleView.frame
@@ -187,7 +214,7 @@ extension YJMiracleAnimateDriver {
 		if (t > b && !force) || (t <= b && force) {
 			var totalH: CGFloat = frame.minY
 			for (i, item) in items.enumerated() {
-				let y = totalH - CGFloat(dataSource.spaceOfItems(in: miracleView)) - item.bounds.height / 2
+				let y = totalH - space - item.bounds.height / 2
 				var animation = YJMiracleAnimation()
 				animation.openLocation = CGPoint(x: item.layer.position.x, y: y)
 				animation.closeLocation = item.layer.position
@@ -196,11 +223,13 @@ extension YJMiracleAnimateDriver {
 				item.animateDriver.animate = item.animateDriver.installAnimation(animation)
 				
 				switch item.miracleView!.animateDriver.animateType {
-				case .lineH:
-					item.animateDriver.animateType = .lineV
-				default:
-					item.animateDriver.animateType = .lineH
-				}
+                case .lineH(let space):
+                    item.animateDriver.animateType = .lineV(space)
+                case .lineV(let space):
+                    item.animateDriver.animateType = .lineH(space)
+                default:
+                    fatalError("animateType should be .lineV or .lineH")
+                }
 				
 				totalH = y - item.bounds.height / 2
 			}
@@ -209,7 +238,7 @@ extension YJMiracleAnimateDriver {
 		} else {
 			var totalH: CGFloat = frame.maxY
 			for (i, item) in items.enumerated() {
-				let y = totalH + CGFloat(dataSource.spaceOfItems(in: miracleView)) + item.bounds.height / 2
+				let y = totalH + space + item.bounds.height / 2
 				var animation = YJMiracleAnimation()
 				animation.openLocation = CGPoint(x: item.layer.position.x, y: y)
 				animation.closeLocation = item.layer.position
@@ -218,11 +247,13 @@ extension YJMiracleAnimateDriver {
 				item.animateDriver.animate = item.animateDriver.installAnimation(animation)
 				
 				switch item.miracleView!.animateDriver.animateType {
-				case .lineH:
-					item.animateDriver.animateType = .lineV
-				default:
-					item.animateDriver.animateType = .lineH
-				}
+                case .lineH(let space):
+                    item.animateDriver.animateType = .lineV(space)
+                case .lineV(let space):
+                    item.animateDriver.animateType = .lineH(space)
+                default:
+                    fatalError("animateType should be .lineV or .lineH")
+                }
 				
 				totalH = y + item.bounds.height / 2
 			}
@@ -233,13 +264,13 @@ extension YJMiracleAnimateDriver {
 			return view != miracleView && view.frame.intersects(layoutFrame)
 		}).count > 0
 		
-		if has && !force { return lineVAnimation(true) }
+		if has && !force { return lineVAnimation(space, force: true) }
 		else if has { return }
 	}
 }
 
 extension YJMiracleAnimateDriver {
-	fileprivate func circleAnimation(_ angle: CGFloat) {
+    fileprivate func circleAnimation(radius: CGFloat, startAngle: CGFloat, endAngle: CGFloat) {
 		guard let miracleView = miracleView, let superview = miracleView.superview, let dataSource = miracleView.dataSource else {
 			return
 		}

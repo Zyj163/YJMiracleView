@@ -17,6 +17,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
 		
 		miracleView.dataSource = self
+        miracleView.delegate = self
 		miracleView.backgroundColor = .red
 		miracleView.layer.cornerRadius = 15
 		miracleView.layer.masksToBounds = true
@@ -74,5 +75,15 @@ extension ViewController: YJMiracleViewDataSource {
 	func miracleView(_ miracleView: YJMiracleView, sizeForItemAt position: YJMiracleItemPosition) -> CGSize{
 		return CGSize(width: 30, height: 30)
 	}
+}
+
+extension ViewController: YJMiracleViewDelegate {
+    func mircaleViewDidOpened(_ mircaleView: YJMiracleView) {
+        print("did open position \(miracleView.position)")
+    }
+    
+    func mircaleViewDidClosed(_ mircaleView: YJMiracleView) {
+        print("did close position \(miracleView.position)")
+    }
 }
 
