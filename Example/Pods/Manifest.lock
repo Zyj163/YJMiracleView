@@ -1,15 +1,15 @@
 PODS:
-  - YJMiracleView (0.1.1)
+  - YJMiracleView (0.2.0)
 
 DEPENDENCIES:
   - YJMiracleView (from `../`)
 
 EXTERNAL SOURCES:
   YJMiracleView:
-    :path: ../
+    :path: "../"
 
 SPEC CHECKSUMS:
-  YJMiracleView: 6dfa935ed9385ea5cb862e83ae878ed7bae42cd8
+  YJMiracleView: 3396aa4e8c99b3c3d64cafdbb40d92cb969c32c0
 
 PODFILE CHECKSUM: 108615cb7c61b0826cce46935027cfdcaffc87a2
 
