@@ -32,32 +32,22 @@ class ViewController: UIViewController {
 		
 		miracleView.textLabel.text = "0-0"
 		miracleView.textLabel.textColor = .white
+        
+        if title == "line" {
+            miracleView.animateDriver.animateType = .lineH(10)
+        } else {
+            miracleView.animateDriver.animateType = .circle(100, 0, CGFloat.pi / 2)
+        }
     }
-	
-	var testPosition: YJMiracleItemPosition!
-	var testMiracleView: YJMiracleView!
-	@IBAction func findTestPosition() {
-		if let item = testMiracleView.item(at: testPosition) {
-			item.backgroundColor = .black
-		}
-	}
 }
 
 extension ViewController: YJMiracleViewDataSource {
 
-	func miracleView(_ miracleView :YJMiracleView, numbersInLane: Int) -> Int {
-		return 4
-	}
+    func numbersOfItem(in miracleView: YJMiracleView) -> Int {
+        return 4
+    }
 	
-	func item(in miracleView: YJMiracleView, at position: YJMiracleItemPosition) -> YJMiracleView {
-		
-		if position.lane == 3 && position.index == 2 {testPosition = position}
-		
-		if let m = miracleView.miracleView {
-			testMiracleView = miracleView
-			testPosition = m.position
-		}
-		
+	func miracleView(miracleView: YJMiracleView, itemAt position: YJMiracleItemPosition) -> YJMiracleView {
 		
 		let item = YJMiracleView()
 		item.backgroundColor = UIColor(red: CGFloat(arc4random()%256)/255.0, green: CGFloat(arc4random()%256)/255.0, blue: CGFloat(arc4random()%256)/255.0, alpha: 1)
@@ -68,11 +58,21 @@ extension ViewController: YJMiracleViewDataSource {
 		}
 		item.dataSource = self
 		item.textLabel.text = "\(position.lane)-\(position.index)"
-		item.textLabel.textColor = .white
+        item.textLabel.textColor = .white
+        
+        
+        switch miracleView.animateDriver.animateType {
+        case .lineH(let space):
+            item.animateDriver.animateType = .lineV(space)
+        case .lineV(let space):
+            item.animateDriver.animateType = .lineH(space)
+        default:
+            item.animateDriver.animateType = miracleView.animateDriver.animateType
+        }
 		return item
 	}
 	
-	func miracleView(_ miracleView: YJMiracleView, sizeForItemAt position: YJMiracleItemPosition) -> CGSize{
+	func miracleView(_ miracleView: YJMiracleView, sizeOfItemAt position: YJMiracleItemPosition) -> CGSize{
 		return CGSize(width: 30, height: 30)
 	}
 }

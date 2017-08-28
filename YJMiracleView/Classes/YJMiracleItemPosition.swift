@@ -31,7 +31,7 @@ public class YJMiracleItemPosition {
 }
 
 extension YJMiracleItemPosition {
-	private func findAncestor(_ position: YJMiracleItemPosition) -> YJMiracleItemPosition {
+    public func findAncestor(_ position: YJMiracleItemPosition) -> YJMiracleItemPosition {
 		guard let parent = position.parent else { return position }
 		return findAncestor(parent)
 	}

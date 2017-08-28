@@ -9,8 +9,9 @@
 import UIKit
 
 public enum YJMiracleViewAnimateType {
-	case lineH(CGFloat) //item 间隔，默认10
-	case lineV(CGFloat) //item 间隔，默认10
+    case none
+	case lineH(CGFloat) //item 间隔
+	case lineV(CGFloat) //item 间隔
 	case circle(CGFloat, CGFloat, CGFloat)//半径，起始角度，结束角度（向右水平线为0度）
 	case custom
     
@@ -89,7 +90,7 @@ public struct YJMiracleAnimation {
 
 public class YJMiracleAnimateDriver {
 
-	public var animateType: YJMiracleViewAnimateType = .lineH(10)
+	public var animateType: YJMiracleViewAnimateType = .none
 	
 	fileprivate weak var _miracleView: YJMiracleView?
 	
@@ -113,13 +114,14 @@ public class YJMiracleAnimateDriver {
 		case .circle(let radius, let startAngle, let endAngle):
 			circleAnimation(radius: radius, startAngle: startAngle, endAngle: endAngle)
 		default:
+            fatalError("you should set a valide animateType")
 			break
 		}
 	}
 
 }
 
-// MARK: - 默认line动画，下一级的展开方向与上一级不同
+// MARK: - line布局
 extension YJMiracleAnimateDriver {
 	
     fileprivate func lineHAnimation(_ space: CGFloat, force: Bool = false) {
@@ -149,15 +151,6 @@ extension YJMiracleAnimateDriver {
 				animation.closeDelay = Double(i) * animation.closeDuration / 2
 				item.animateDriver.animate = item.animateDriver.installAnimation(animation)
 				
-				switch item.miracleView!.animateDriver.animateType {
-				case .lineH(let space):
-					item.animateDriver.animateType = .lineV(space)
-				case .lineV(let space):
-					item.animateDriver.animateType = .lineH(space)
-                default:
-                    fatalError("animateType should be .lineV or .lineH")
-				}
-				
 				totalW = x + item.bounds.width / 2
 			}
 			layoutFrame = CGRect(x: frame.maxX, y: frame.minY, width: totalW - frame.maxX, height: bounds.height)
@@ -172,15 +165,6 @@ extension YJMiracleAnimateDriver {
 				animation.openDelay = Double(items.count - 1 - i) * animation.closeDuration / 2
 				animation.closeDelay = Double(i) * animation.closeDuration / 2
 				item.animateDriver.animate = item.animateDriver.installAnimation(animation)
-				
-				switch item.miracleView!.animateDriver.animateType {
-                case .lineH(let space):
-                    item.animateDriver.animateType = .lineV(space)
-                case .lineV(let space):
-                    item.animateDriver.animateType = .lineH(space)
-                default:
-                    fatalError("animateType should be .lineV or .lineH")
-                }
 				
 				totalW = x - item.bounds.width / 2
 			}
@@ -222,15 +206,6 @@ extension YJMiracleAnimateDriver {
 				animation.closeDelay = Double(i) * animation.closeDuration / 2
 				item.animateDriver.animate = item.animateDriver.installAnimation(animation)
 				
-				switch item.miracleView!.animateDriver.animateType {
-                case .lineH(let space):
-                    item.animateDriver.animateType = .lineV(space)
-                case .lineV(let space):
-                    item.animateDriver.animateType = .lineH(space)
-                default:
-                    fatalError("animateType should be .lineV or .lineH")
-                }
-				
 				totalH = y - item.bounds.height / 2
 			}
 			layoutFrame = CGRect(x: frame.minX, y: totalH, width: bounds.width, height: frame.minY - totalH)
@@ -246,15 +221,6 @@ extension YJMiracleAnimateDriver {
 				animation.closeDelay = Double(i) * animation.closeDuration / 2
 				item.animateDriver.animate = item.animateDriver.installAnimation(animation)
 				
-				switch item.miracleView!.animateDriver.animateType {
-                case .lineH(let space):
-                    item.animateDriver.animateType = .lineV(space)
-                case .lineV(let space):
-                    item.animateDriver.animateType = .lineH(space)
-                default:
-                    fatalError("animateType should be .lineV or .lineH")
-                }
-				
 				totalH = y + item.bounds.height / 2
 			}
 			layoutFrame = CGRect(x: frame.minX, y: frame.maxY, width: bounds.width, height: totalH - frame.maxY)
@@ -269,14 +235,49 @@ extension YJMiracleAnimateDriver {
 	}
 }
 
+// MARK: - circle布局
 extension YJMiracleAnimateDriver {
     fileprivate func circleAnimation(radius: CGFloat, startAngle: CGFloat, endAngle: CGFloat) {
-		guard let miracleView = miracleView, let superview = miracleView.superview, let dataSource = miracleView.dataSource else {
+		guard let miracleView = miracleView else {
 			return
 		}
 		if miracleView.items.isEmpty {return}
 		
-		
+		let itemCount = miracleView.items.count
+        var totalAngle: CGFloat = 0
+        miracleView.items.enumerated().forEach { (offset: Int, element: YJMiracleView) in
+            let size = element.bounds.size
+            let diameter = size.width
+            let angle = 2 * asin(diameter / 2 / radius)
+            totalAngle += angle * ((offset == 0 || offset == itemCount - 1) ? 0.5 : 1)
+        }
+        
+        let layoutAngle = endAngle - startAngle
+        let spaceAngle = (layoutAngle - totalAngle) / CGFloat(itemCount - 1)
+        
+        totalAngle = startAngle
+        
+        miracleView.items.enumerated().forEach { (offset: Int, element: YJMiracleView) in
+            let size = element.bounds.size
+            let diameter = size.width
+            let angle = 2 * asin(diameter / 2 / radius)
+            
+            totalAngle += CGFloat(offset == 0 ? 0 : (angle / 2 + spaceAngle))
+            
+            let x = radius * cos(angle / 2) * cos(totalAngle)
+            let y = radius * cos(angle / 2) * sin(totalAngle)
+            
+            var animation = YJMiracleAnimation()
+            animation.openLocation = CGPoint(x: miracleView.layer.position.x + x, y: miracleView.layer.position.y - y)
+            animation.closeLocation = element.layer.position
+            animation.openDelay = 0
+            animation.closeDelay = 0
+            animation.openTransform = CATransform3DMakeRotation(CGFloat.pi / 2 - totalAngle, 0, 0, 1)
+            animation.closeTransform = CATransform3DIdentity
+            element.animateDriver.animate = element.animateDriver.installAnimation(animation)
+            
+            totalAngle += angle / 2
+        }
 	}
 }
 
@@ -310,10 +311,16 @@ extension YJMiracleAnimateDriver {
 		}
 	}
 	
+	/// 执行动画
+	///
+	/// - Parameters:
+	///   - open: 是否是展开
+	///   - completion: 完成后的回调
 	open func excuteAnimation(open: Bool, completion: @escaping ()->()) {
 		animate?(open, completion)
 	}
 	
+	/// 点击效果
 	open func clickOnAnimation() {
 		guard let miracleView = miracleView else {return}
 		if miracleView.isAnimating {return}
