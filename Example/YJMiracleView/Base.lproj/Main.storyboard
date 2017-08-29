@@ -9,10 +9,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--line-->
+        <!--View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController title="line" id="vXZ-lx-hvc" customClass="ViewController" customModule="YJMiracleView_Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="vXZ-lx-hvc" customClass="ViewController" customModule="YJMiracleView_Example" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
                         <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
@@ -22,8 +22,8 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
-                    <navigationItem key="navigationItem" title="line" id="4s8-nF-c7E">
-                        <barButtonItem key="rightBarButtonItem" title="circle" id="0eg-Ue-Cwp">
+                    <navigationItem key="navigationItem" id="4s8-nF-c7E">
+                        <barButtonItem key="rightBarButtonItem" title="more" id="0eg-Ue-Cwp">
                             <connections>
                                 <segue destination="uNw-O6-YLC" kind="push" id="wAB-MP-oLl"/>
                             </connections>
@@ -34,10 +34,10 @@
             </objects>
             <point key="canvasLocation" x="478" y="36"/>
         </scene>
-        <!--circle-->
+        <!--View Controller2-->
         <scene sceneID="zrz-8v-hLQ">
             <objects>
-                <viewController title="circle" id="uNw-O6-YLC" customClass="ViewController" customModule="YJMiracleView_Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="uNw-O6-YLC" customClass="ViewController2" customModule="YJMiracleView_Example" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="OHR-8R-WkI"/>
                         <viewControllerLayoutGuide type="bottom" id="JQm-kr-9u1"/>
@@ -45,13 +45,80 @@
                     <view key="view" contentMode="scaleToFill" id="YFY-bH-gDt">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Id8-Nk-UW7">
+                                <rect key="frame" x="187.5" y="265" width="187.5" height="201"/>
+                                <color key="backgroundColor" red="0.43962374310000002" green="0.59947716269999995" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JAo-dY-GBx">
+                                <rect key="frame" x="187.5" y="64" width="187.5" height="201"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P2d-vn-cgT">
+                                <rect key="frame" x="0.0" y="265" width="187.5" height="201"/>
+                                <color key="backgroundColor" red="0.40781933069229126" green="0.40181653064500161" blue="0.18891838776040465" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vTL-7K-udV">
+                                <rect key="frame" x="0.0" y="466" width="187.5" height="201"/>
+                                <color key="backgroundColor" red="1" green="0.5533890937" blue="0.28721394830000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" red="1" green="0.55338909371253808" blue="0.2872139483411158" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6FM-oc-18l">
+                                <rect key="frame" x="187.5" y="466" width="187.5" height="201"/>
+                                <color key="backgroundColor" red="0.41317371524779578" green="1" blue="0.52366989388704321" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z1t-wU-wLA">
+                                <rect key="frame" x="0.0" y="64" width="187.5" height="201"/>
+                                <color key="backgroundColor" red="1" green="0.99014445689999997" blue="0.50881441530000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="JQm-kr-9u1" firstAttribute="top" secondItem="6FM-oc-18l" secondAttribute="bottom" id="20a-AM-T8Q"/>
+                            <constraint firstItem="P2d-vn-cgT" firstAttribute="leading" secondItem="YFY-bH-gDt" secondAttribute="leading" id="2k6-op-EAS"/>
+                            <constraint firstItem="JAo-dY-GBx" firstAttribute="leading" secondItem="z1t-wU-wLA" secondAttribute="trailing" id="6YB-vx-0wa"/>
+                            <constraint firstItem="z1t-wU-wLA" firstAttribute="top" secondItem="OHR-8R-WkI" secondAttribute="bottom" id="8Im-3o-Y6t"/>
+                            <constraint firstItem="vTL-7K-udV" firstAttribute="leading" secondItem="YFY-bH-gDt" secondAttribute="leading" id="9I9-og-Lcv"/>
+                            <constraint firstItem="JAo-dY-GBx" firstAttribute="top" secondItem="OHR-8R-WkI" secondAttribute="bottom" id="9pI-W0-m5C"/>
+                            <constraint firstItem="z1t-wU-wLA" firstAttribute="height" secondItem="JAo-dY-GBx" secondAttribute="height" id="AYt-k7-2p2"/>
+                            <constraint firstItem="Id8-Nk-UW7" firstAttribute="height" secondItem="P2d-vn-cgT" secondAttribute="height" id="G2S-ce-4oO"/>
+                            <constraint firstItem="P2d-vn-cgT" firstAttribute="width" secondItem="Id8-Nk-UW7" secondAttribute="width" id="HOf-jG-Ae6"/>
+                            <constraint firstItem="6FM-oc-18l" firstAttribute="height" secondItem="vTL-7K-udV" secondAttribute="height" id="HfZ-ga-1eo"/>
+                            <constraint firstItem="vTL-7K-udV" firstAttribute="top" secondItem="P2d-vn-cgT" secondAttribute="bottom" id="Hgt-lL-emf"/>
+                            <constraint firstItem="JQm-kr-9u1" firstAttribute="top" secondItem="vTL-7K-udV" secondAttribute="bottom" id="ImL-Ce-P2i"/>
+                            <constraint firstAttribute="trailing" secondItem="Id8-Nk-UW7" secondAttribute="trailing" id="J1D-PV-Zvw"/>
+                            <constraint firstItem="6FM-oc-18l" firstAttribute="top" secondItem="Id8-Nk-UW7" secondAttribute="bottom" id="KQ9-8V-Cn0"/>
+                            <constraint firstItem="vTL-7K-udV" firstAttribute="width" secondItem="6FM-oc-18l" secondAttribute="width" id="Kfh-qW-sk2"/>
+                            <constraint firstItem="6FM-oc-18l" firstAttribute="leading" secondItem="vTL-7K-udV" secondAttribute="trailing" id="LUe-zK-veu"/>
+                            <constraint firstItem="P2d-vn-cgT" firstAttribute="height" secondItem="z1t-wU-wLA" secondAttribute="height" id="MIY-B1-3Rg"/>
+                            <constraint firstAttribute="trailing" secondItem="JAo-dY-GBx" secondAttribute="trailing" id="OVU-Lr-T90"/>
+                            <constraint firstItem="Id8-Nk-UW7" firstAttribute="top" secondItem="JAo-dY-GBx" secondAttribute="bottom" id="RIc-6r-Dex"/>
+                            <constraint firstItem="vTL-7K-udV" firstAttribute="top" secondItem="P2d-vn-cgT" secondAttribute="bottom" id="So0-Hz-fYa"/>
+                            <constraint firstItem="JAo-dY-GBx" firstAttribute="leading" secondItem="z1t-wU-wLA" secondAttribute="trailing" id="X3c-1c-bqa"/>
+                            <constraint firstAttribute="trailing" secondItem="6FM-oc-18l" secondAttribute="trailing" id="YOf-Xl-ZLQ"/>
+                            <constraint firstItem="z1t-wU-wLA" firstAttribute="width" secondItem="JAo-dY-GBx" secondAttribute="width" id="d65-SI-Cid"/>
+                            <constraint firstItem="6FM-oc-18l" firstAttribute="leading" secondItem="vTL-7K-udV" secondAttribute="trailing" id="k4P-VR-qJG"/>
+                            <constraint firstItem="z1t-wU-wLA" firstAttribute="leading" secondItem="YFY-bH-gDt" secondAttribute="leading" id="quu-9I-wQf"/>
+                            <constraint firstItem="Id8-Nk-UW7" firstAttribute="leading" secondItem="P2d-vn-cgT" secondAttribute="trailing" id="roJ-mJ-F6V"/>
+                            <constraint firstItem="6FM-oc-18l" firstAttribute="height" secondItem="Id8-Nk-UW7" secondAttribute="height" id="sxp-eQ-Cj0"/>
+                            <constraint firstItem="Id8-Nk-UW7" firstAttribute="leading" secondItem="P2d-vn-cgT" secondAttribute="trailing" id="w69-Ip-FXz"/>
+                            <constraint firstItem="6FM-oc-18l" firstAttribute="top" secondItem="Id8-Nk-UW7" secondAttribute="bottom" id="zbS-kK-I1O"/>
+                            <constraint firstItem="P2d-vn-cgT" firstAttribute="top" secondItem="z1t-wU-wLA" secondAttribute="bottom" id="zyv-mw-o8S"/>
+                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="circle" id="oLG-PW-9f3"/>
+                    <navigationItem key="navigationItem" id="oLG-PW-9f3"/>
+                    <connections>
+                        <outlet property="containerView1" destination="z1t-wU-wLA" id="pz5-3F-Fkf"/>
+                        <outlet property="containerView2" destination="JAo-dY-GBx" id="kJl-o3-dFo"/>
+                        <outlet property="containerView3" destination="P2d-vn-cgT" id="Ccp-B1-31f"/>
+                        <outlet property="containerView4" destination="Id8-Nk-UW7" id="0F9-KC-1NZ"/>
+                        <outlet property="containerView5" destination="vTL-7K-udV" id="M96-iR-TKB"/>
+                        <outlet property="containerView6" destination="6FM-oc-18l" id="Ob3-EL-aio"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sh8-0U-wFe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1105" y="36"/>
+            <point key="canvasLocation" x="1104.8" y="35.532233883058474"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Q48-aO-Eut">

@@ -9,6 +9,8 @@
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
+![image](https://github.com/Zyj163/YJMiracleView/blob/master/miracleView.gif)
+
 ## Requirements
 
 ## Installation
@@ -17,7 +19,7 @@ YJMiracleView is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
 ```ruby
-pod "YJMiracleView"
+pod "YJMiracleView", :git => 'https://github.com/Zyj163/YJMiracleView.git'
 ```
 
 ## Author

@@ -34,33 +34,50 @@ public protocol YJMiracleViewDataSource: class {
 }
 
 @objc public protocol YJMiracleViewDelegate: NSObjectProtocol {
-	
+    
+    /// 点击的回调事件
+    ///
+    /// - Parameter miracleView: miracleView
+    @objc optional func miracleViewDidBeenClicked(_ miracleView: YJMiracleView)
 	/// 展开完毕
 	///
 	/// - Parameter mircaleView: 被展开的miracleView
-	@objc optional func mircaleViewDidOpened(_ mircaleView: YJMiracleView)
+	@objc optional func miracleViewDidOpened(_ miracleView: YJMiracleView)
     
 	/// 关闭完毕
 	///
-	/// - Parameter mircaleView: 被关闭的miracleView
-	@objc optional func mircaleViewDidClosed(_ mircaleView: YJMiracleView)
+	/// - Parameter miracleView: 被关闭的miracleView
+	@objc optional func miracleViewDidClosed(_ miracleView: YJMiracleView)
     
     /// 结束移动
     ///
-    /// - Parameter mircaleView: 被移动的miracleView（默认只有根miracleView可以移动）
-    @objc optional func mircaleViewDidEndMoved(_ mircaleView: YJMiracleView)
+    /// - Parameter miracleView: 被移动的miracleView（默认只有根miracleView可以移动）
+    @objc optional func miracleViewShouldAttachWhenEndMoved(_ miracleView: YJMiracleView) -> Bool
     /// 开始移动
     ///
-    /// - Parameter mircaleView: 被移动的miracleView（默认只有根miracleView可以移动）
-    @objc optional func mircaleViewDidBeganMoving(_ mircaleView: YJMiracleView)
+    /// - Parameter miracleView: 被移动的miracleView（默认只有根miracleView可以移动）
+    @objc optional func miracleViewDidBeganMoving(_ miracleView: YJMiracleView)
     /// 正在移动
     ///
-    /// - Parameter mircaleView: 被移动的miracleView（默认只有根miracleView可以移动）
-    @objc optional func mircaleViewIsMoving(_ mircaleView: YJMiracleView)
+    /// - Parameter miracleView: 被移动的miracleView（默认只有根miracleView可以移动）
+    @objc optional func miracleViewIsMoving(_ miracleView: YJMiracleView)
+    
+    /// 将要半透明，可以阻止，可以添加自己的操作
+    ///
+    /// - Parameter miracleView: miracleView
+    /// - Returns: 是否阻止半透明
+    @objc optional func mircaleViewWillTranslucent(_ miracleView: YJMiracleView) -> Bool
+    /// 将要取消半透明，可以阻止，可以添加自己的操作
+    ///
+    /// - Parameter miracleView: miracleView
+    /// - Returns: 是否阻止取消半透明
+    @objc optional func miracleViewWillCancelTranslucent(_ miracleView: YJMiracleView) -> Bool
 }
 
 open class YJMiracleView: UIView {
-	
+    
+    /// 唯一标志符
+    public var identifier: String?
 	/// 数据源
 	public weak var dataSource: YJMiracleViewDataSource?
     
@@ -109,7 +126,7 @@ open class YJMiracleView: UIView {
 	}
 	
 	fileprivate var autoTranslucentable: Bool = true
-	fileprivate var attachable: Bool = true
+	fileprivate var movable: Bool = true
 	
 	fileprivate var isRootItem: Bool = true
 	
@@ -127,17 +144,20 @@ open class YJMiracleView: UIView {
 	
 	/// 父miracleView
 	public weak var miracleView: YJMiracleView?
+    
+    /// 设置是否只会展开一级，如果设置为true，不会自动reload(重新加载数据)
+    public var justOneMiracleView: Bool = false
 	
 	/// 构造器
 	///
 	/// - Parameters:
 	///   - frame: frame
 	///   - autoTranslucentable: 是否开启自动延时半透明
-	///   - attachable: 是否可以移动（根miracleView有效）
-	convenience public init(_ frame: CGRect, autoTranslucentable: Bool = true, attachable: Bool = true) {
-		self.init(frame)
+	///   - movable: 是否可以移动（根miracleView有效）
+	convenience public init(_ frame: CGRect, autoTranslucentable: Bool = true, movable: Bool = true) {
+        self.init(frame: frame)
 		self.autoTranslucentable = autoTranslucentable
-		self.attachable = attachable
+		self.movable = movable
 	}
 	
 	override private init(frame: CGRect) {
@@ -159,6 +179,7 @@ open class YJMiracleView: UIView {
 	func tapOn(_ sender: UITapGestureRecognizer) {
 		if hasClickOnAnimate { animateDriver.clickOnAnimation() }
 		clickOn?()
+        delegate?.miracleViewDidBeenClicked?(self)
 		if autoTranslucentable { inactiveAutoTranslucent() }
 	}
 	
@@ -172,6 +193,16 @@ open class YJMiracleView: UIView {
 			imageView.frame = bounds
 		}
 	}
+    
+    open override func didMoveToWindow() {
+        super.didMoveToWindow()
+        if isRootItem && movable {
+            activeAttachable()
+        }
+        if isRootItem && autoTranslucentable {
+            activeAutoTranslucent()
+        }
+    }
 }
 
 
@@ -179,6 +210,12 @@ extension YJMiracleView {
     
 	/// 展开
 	public func open() {
+        switch animateDriver.animateType {
+        case .none:
+            return
+        default:
+            break
+        }
 		
 		if opened || animating { return }
 		
@@ -190,7 +227,14 @@ extension YJMiracleView {
 	}
 	
 	/// 关闭
-	public func close() {
+    public func close() {
+        switch animateDriver.animateType {
+        case .none:
+            return
+        default:
+            break
+        }
+        
 		if !opened || animating { return }
 		items.forEach { (item: YJMiracleView) in
 			autoreleasepool(invoking: { () -> Void in
@@ -245,7 +289,7 @@ extension YJMiracleView {
 		return nil
 	}
 	
-	fileprivate func reload() {
+	public func reload() {
 		items.forEach { (item: YJMiracleView) in
 			autoreleasepool(invoking: { () -> Void in
 				item.reload()
@@ -254,6 +298,15 @@ extension YJMiracleView {
 		}
 		_items.removeAll()
 	}
+    
+    fileprivate func removeFromView() {
+        items.forEach { (item: YJMiracleView) in
+            autoreleasepool(invoking: { () -> Void in
+                item.removeFromView()
+                item.removeFromSuperview()
+            })
+        }
+    }
 }
 
 
@@ -261,18 +314,22 @@ extension YJMiracleView {
 extension YJMiracleView {
 	
 	/// 打开前的准备工作，调用数据源，添加子item
-	fileprivate func prepareToOpen() {
-		if !items.isEmpty { return }
-		guard let dataSource = dataSource else { return }
+    fileprivate func prepareToOpen() {
+        guard let dataSource = dataSource else { return }
+        
+        if superview == nil {
+            guard let keyWindow = UIApplication.shared.keyWindow else { return }
+            keyWindow.addSubview(self)
+            self.bounds = CGRect(origin: CGPoint.zero, size: dataSource.miracleView(self, sizeOfItemAt: YJMiracleItemPosition(lane: position.index, index: 0, parent: position)))
+        }
+        
+		if !items.isEmpty {
+            items.forEach {superview!.insertSubview($0, belowSubview: self)}
+            return
+        }
 		
 		let tmpNum = dataSource.numbersOfItem(in: self)
 		if tmpNum == 0 { return }
-		
-		if superview == nil {
-			guard let keyWindow = UIApplication.shared.keyWindow else { return }
-			keyWindow.addSubview(self)
-			self.bounds = CGRect(origin: CGPoint.zero, size: dataSource.miracleView(self, sizeOfItemAt: YJMiracleItemPosition(lane: position.index, index: 0, parent: position)))
-		}
 		
 		for i in 1...tmpNum {
 			let pp = YJMiracleItemPosition(lane: position.index, index: i, parent: position)
@@ -285,7 +342,7 @@ extension YJMiracleView {
 			
 			item.isRootItem = false
 			item.autoTranslucentable = false
-			item.attachable = false
+			item.movable = false
 			
 			superview!.insertSubview(item, belowSubview: self)
 			
@@ -316,34 +373,40 @@ extension YJMiracleView {
 	
 	/// 打开后的设置
 	private func didOpened() {
-		if isRootItem && attachable {inactiveAttachable()}
+		if isRootItem && movable {inactiveAttachable()}
 		
-		delegate?.mircaleViewDidOpened?(self)
+		delegate?.miracleViewDidOpened?(self)
 	}
 	
 	/// 关闭后的设置
 	private func didClosed() {
-		reload()
+        if !justOneMiracleView {
+            reload()
+        } else {
+            removeFromView()
+        }
 		activeAutoTranslucent()
-		if isRootItem && attachable {activeAttachable()}
+		if isRootItem && movable {activeAttachable()}
 		
-		delegate?.mircaleViewDidClosed?(self)
+		delegate?.miracleViewDidClosed?(self)
 	}
 }
 
 
-// MARK: - YJAttachable
+// MARK: - YJmovable
 extension YJMiracleView: YJAttachable {
 	open func shouldStateChanged(_ state: UIGestureRecognizerState) -> Bool {
 		switch state {
 		case .began:
-            delegate?.mircaleViewDidBeganMoving?(self)
+            delegate?.miracleViewDidBeganMoving?(self)
 			inactiveAutoTranslucent()
-		case .ended, .cancelled:
-            delegate?.mircaleViewDidEndMoved?(self)
-			activeAutoTranslucent()
+        case .ended, .cancelled:
+            activeAutoTranslucent()
+            if let attach = delegate?.miracleViewShouldAttachWhenEndMoved?(self) {
+                return attach
+            }
         case .changed:
-            delegate?.mircaleViewIsMoving?(self)
+            delegate?.miracleViewIsMoving?(self)
 		default:
 			break
 		}

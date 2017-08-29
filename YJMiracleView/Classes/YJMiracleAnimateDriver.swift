@@ -248,7 +248,7 @@ extension YJMiracleAnimateDriver {
         miracleView.items.enumerated().forEach { (offset: Int, element: YJMiracleView) in
             let size = element.bounds.size
             let diameter = size.width
-            let angle = 2 * asin(diameter / 2 / radius)
+            let angle = radius == 0 ? 0 : 2 * asin(diameter / 2 / radius)
             totalAngle += angle * ((offset == 0 || offset == itemCount - 1) ? 0.5 : 1)
         }
         
@@ -260,7 +260,7 @@ extension YJMiracleAnimateDriver {
         miracleView.items.enumerated().forEach { (offset: Int, element: YJMiracleView) in
             let size = element.bounds.size
             let diameter = size.width
-            let angle = 2 * asin(diameter / 2 / radius)
+            let angle = radius == 0 ? 0 : 2 * asin(diameter / 2 / radius)
             
             totalAngle += CGFloat(offset == 0 ? 0 : (angle / 2 + spaceAngle))
             
