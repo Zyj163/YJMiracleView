@@ -10,11 +10,11 @@ commitMessage = options[:message]
 write_tag(tag: "#{tagName}")
 
 #1. carthage
-carthage(
-command: "build",
-no_skip_current: true,
-platform: "iOS"
-)
+#carthage(
+#command: "build",
+#no_skip_current: true,
+#platform: "iOS"
+#)
 
 cocoapods(
 clean:true,
