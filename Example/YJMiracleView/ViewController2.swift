@@ -42,7 +42,7 @@ class ViewController2: UIViewController {
         animate.fromValue = 0
         animate.toValue = CGFloat.pi * 2
         animate.repeatCount = MAXFLOAT
-        animate.fillMode = kCAFillModeForwards
+        animate.fillMode = CAMediaTimingFillMode.forwards
         animate.duration = 3
         
         containerView.layer.removeAllAnimations()

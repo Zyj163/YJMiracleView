@@ -50,8 +50,8 @@ public struct YJMiracleAnimation {
 	var openOpacity: Float? = 1
 	var closeOpacity: Float? = 0
 	
-	var openOptions: UIViewAnimationOptions = [.curveLinear]
-	var closeOptions: UIViewAnimationOptions = [.curveLinear]
+	var openOptions: UIView.AnimationOptions = [.curveLinear]
+	var closeOptions: UIView.AnimationOptions = [.curveLinear]
 	
 	var openDuration: TimeInterval = 0.25
 	var closeDuration: TimeInterval = 0.25

@@ -176,7 +176,7 @@ open class YJMiracleView: UIView {
 		if autoTranslucentable { inactiveAutoTranslucent() }
 	}
 	
-	func tapOn(_ sender: UITapGestureRecognizer) {
+	@objc func tapOn(_ sender: UITapGestureRecognizer) {
 		if hasClickOnAnimate { animateDriver.clickOnAnimation() }
 		clickOn?()
         delegate?.miracleViewDidBeenClicked?(self)
@@ -395,7 +395,7 @@ extension YJMiracleView {
 
 // MARK: - YJmovable
 extension YJMiracleView: YJAttachable {
-	open func shouldStateChanged(_ state: UIGestureRecognizerState) -> Bool {
+	open func shouldStateChanged(_ state: UIGestureRecognizer.State) -> Bool {
 		switch state {
 		case .began:
             delegate?.miracleViewDidBeganMoving?(self)
@@ -418,7 +418,7 @@ extension YJMiracleView: YJAttachable {
 extension YJMiracleView {
 	public func activeAutoTranslucent() {
 		if !autoTranslucentable {return}
-		perform(#selector(makeTranslucent), with: nil, afterDelay: 5, inModes: [.commonModes])
+		perform(#selector(makeTranslucent), with: nil, afterDelay: 5, inModes: [RunLoop.Mode.common])
 	}
 	
 	public func inactiveAutoTranslucent() {

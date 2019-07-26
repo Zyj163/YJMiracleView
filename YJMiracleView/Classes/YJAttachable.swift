@@ -9,33 +9,33 @@
 import UIKit
 
 extension UIPanGestureRecognizer {
-	static func block(_ block: (UIPanGestureRecognizer)->()) -> UIPanGestureRecognizer {
+	static func block(_ block: @escaping (UIPanGestureRecognizer)->()) -> UIPanGestureRecognizer {
 		let pan = UIPanGestureRecognizer(target: self, action: #selector(yj_panOn(sender:)))
-		objc_setAssociatedObject(pan, UnsafeRawPointer(bitPattern: "yj_panBlock".hashValue), block, .OBJC_ASSOCIATION_COPY_NONATOMIC)
+        objc_setAssociatedObject(pan, UnsafeRawPointer(bitPattern: "yj_panBlock".hashValue)!, block, .OBJC_ASSOCIATION_COPY_NONATOMIC)
 		return pan
 	}
 	
-	static func yj_panOn(sender: UIPanGestureRecognizer) {
-		let block = objc_getAssociatedObject(sender, UnsafeRawPointer(bitPattern: "yj_panBlock".hashValue)) as? (UIPanGestureRecognizer)->()
+	@objc static func yj_panOn(sender: UIPanGestureRecognizer) {
+        let block = objc_getAssociatedObject(sender, UnsafeRawPointer(bitPattern: "yj_panBlock".hashValue)!) as? (UIPanGestureRecognizer)->()
 		block?(sender)
 	}
 }
 
 public protocol YJAttachable {
-	func shouldStateChanged(_ state: UIGestureRecognizerState) -> Bool
+	func shouldStateChanged(_ state: UIGestureRecognizer.State) -> Bool
 }
 
 extension YJAttachable where Self: UIView {
 	public func activeAttachable() {
-		let pan = UIPanGestureRecognizer.block { attachable_panOn(sender: $0) }
-		objc_setAssociatedObject(pan, UnsafeRawPointer(bitPattern: "YJAttachable".hashValue), true, .OBJC_ASSOCIATION_ASSIGN)
+        let pan = UIPanGestureRecognizer.block { self.attachable_panOn(sender: $0) }
+        objc_setAssociatedObject(pan, UnsafeRawPointer(bitPattern: "YJAttachable".hashValue)!, true, .OBJC_ASSOCIATION_ASSIGN)
 		addGestureRecognizer(pan)
 	}
 	
 	public func inactiveAttachable() {
 		guard let geses = gestureRecognizers else {return}
 		for ges in geses {
-			if ges is UIPanGestureRecognizer, objc_getAssociatedObject(ges, UnsafeRawPointer(bitPattern: "YJAttachable".hashValue)) as? Bool ?? false {
+            if ges is UIPanGestureRecognizer, objc_getAssociatedObject(ges, UnsafeRawPointer(bitPattern: "YJAttachable".hashValue)!) as? Bool ?? false {
 				ges.removeTarget(ges.self, action: nil)
 				removeGestureRecognizer(ges)
 				break
@@ -91,7 +91,7 @@ extension YJAttachable where Self: UIView {
 }
 
 extension YJAttachable {
-	public func shouldStateChanged(_ state: UIGestureRecognizerState) -> Bool {
+	public func shouldStateChanged(_ state: UIGestureRecognizer.State) -> Bool {
 		return true
 	}
 }

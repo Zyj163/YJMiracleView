@@ -34,10 +34,10 @@
 
 /* Begin PBXFileReference section */
 		03A61276017217152ED448DCD0FB9908 /* Pods-YJMiracleView_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-YJMiracleView_Example-umbrella.h"; sourceTree = "<group>"; };
-		04249505C238D3C302CC3E46C3E08A9B /* Pods_YJMiracleView_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_YJMiracleView_Example.framework; path = "Pods-YJMiracleView_Example.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		04249505C238D3C302CC3E46C3E08A9B /* Pods_YJMiracleView_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YJMiracleView_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		17D98CF9F3888B68266773622B4C5D14 /* Pods-YJMiracleView_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-YJMiracleView_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		1E165D51CFC1883C559E6EF23DF71A23 /* Pods-YJMiracleView_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-YJMiracleView_Example-acknowledgements.plist"; sourceTree = "<group>"; };
-		23BE7011418004231F64575150D83AAE /* YJMiracleView.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = YJMiracleView.modulemap; sourceTree = "<group>"; };
+		23BE7011418004231F64575150D83AAE /* YJMiracleView.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = YJMiracleView.modulemap; sourceTree = "<group>"; };
 		2B76E54441687D713590F362CCBA0F5E /* Pods-YJMiracleView_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-YJMiracleView_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		2C64D23C99429AE021F87E3E38B9A0EF /* Pods-YJMiracleView_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-YJMiracleView_Example.release.xcconfig"; sourceTree = "<group>"; };
 		2E5E4694CF256B6B43D6B9AD15312051 /* Pods-YJMiracleView_Example-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-YJMiracleView_Example-resources.sh"; sourceTree = "<group>"; };
@@ -53,14 +53,14 @@
 		7B575EADB768FBFB2E06CD856F093AEA /* YJMiracleView-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "YJMiracleView-dummy.m"; sourceTree = "<group>"; };
 		7C86D508CEB84E961A881D1F7E68971F /* Pods-YJMiracleView_Tests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-YJMiracleView_Tests-frameworks.sh"; sourceTree = "<group>"; };
 		7F98D644F9516C1DD4EB91F70A0603AB /* Pods-YJMiracleView_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-YJMiracleView_Example-frameworks.sh"; sourceTree = "<group>"; };
-		9290198684ECCE3F192CCA7F23DC981B /* Pods-YJMiracleView_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-YJMiracleView_Tests.modulemap"; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		97970ECBA22626309304085FBDF4BEE5 /* Pods_YJMiracleView_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_YJMiracleView_Tests.framework; path = "Pods-YJMiracleView_Tests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9290198684ECCE3F192CCA7F23DC981B /* Pods-YJMiracleView_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-YJMiracleView_Tests.modulemap"; sourceTree = "<group>"; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		97970ECBA22626309304085FBDF4BEE5 /* Pods_YJMiracleView_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YJMiracleView_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A921E0C1021BA8F138854C3B1B75552A /* Pods-YJMiracleView_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-YJMiracleView_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
 		ACB95753E3868C0E3C3D35DC874F42F4 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		AD5740A69440103C016BBCD1C920A81B /* YJMiracleView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = YJMiracleView.framework; path = YJMiracleView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AD5740A69440103C016BBCD1C920A81B /* YJMiracleView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = YJMiracleView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6063D5E5A00AFE151234ADE1359C438 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B75C555A9EF6C624D23D42773134E4C2 /* Pods-YJMiracleView_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-YJMiracleView_Example.modulemap"; sourceTree = "<group>"; };
+		B75C555A9EF6C624D23D42773134E4C2 /* Pods-YJMiracleView_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-YJMiracleView_Example.modulemap"; sourceTree = "<group>"; };
 		C21434265C7851D0FD4A6BEDF06B0E48 /* YJMiracleView-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "YJMiracleView-prefix.pch"; sourceTree = "<group>"; };
 		E261C2490000AEECE2712FFD86B85CA1 /* Pods-YJMiracleView_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-YJMiracleView_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
 		E3A4B65C1286BBCDCBB3CE59EC2430B4 /* Pods-YJMiracleView_Tests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-YJMiracleView_Tests-resources.sh"; sourceTree = "<group>"; };
@@ -117,7 +117,6 @@
 			children = (
 				CF8CC091A951FAF7949CF8797EC043D7 /* Classes */,
 			);
-			name = YJMiracleView;
 			path = YJMiracleView;
 			sourceTree = "<group>";
 		};
@@ -195,7 +194,6 @@
 				F6858B2046989D37507C3EBF67F8AAA2 /* YJMiracleItemPosition.swift */,
 				FFACBD63B54FDC55D4ED5B684E623939 /* YJMiracleView.swift */,
 			);
-			name = Classes;
 			path = Classes;
 			sourceTree = "<group>";
 		};
@@ -322,7 +320,12 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 1010;
+				TargetAttributes = {
+					A2D614982A1CE43C24A2A01E37BA96DB = {
+						LastSwiftMigration = 1010;
+					};
+				};
 			};
 			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -432,23 +435,33 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGNING_REQUIRED = NO;
 				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"POD_CONFIGURATION_DEBUG=1",
@@ -498,7 +511,8 @@
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -515,22 +529,32 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGNING_REQUIRED = NO;
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"POD_CONFIGURATION_RELEASE=1",
 					"$(inherited)",
@@ -544,6 +568,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
 				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
 				SYMROOT = "${SRCROOT}/../build";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -687,7 +712,8 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
